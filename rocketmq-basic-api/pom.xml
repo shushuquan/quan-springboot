@@ -12,4 +12,12 @@
     <artifactId>rocketmq-basic-api</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.7.1</version>
+        </dependency>
+    </dependencies>
+
 </project>
