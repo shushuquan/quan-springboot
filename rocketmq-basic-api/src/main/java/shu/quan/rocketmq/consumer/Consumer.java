@@ -23,14 +23,13 @@ public class Consumer {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer_group");
 
         // Specify name server addresses.
-        consumer.setNamesrvAddr("192.168.18.100:9876");
-
-        // Subscribe one more more topics to consume.
-        consumer.subscribe("broker-a", "*");
+//        consumer.setNamesrvAddr("192.168.18.100:9876");
+        consumer.setNamesrvAddr("192.168.195.128:9876");
+        /* Subscribe one more more topics to consume. */
+        consumer.subscribe("TopicTestjjj", "*");
         // Register callback to execute on arrival of messages fetched from brokers.
         consumer.registerMessageListener(new MessageListenerConcurrently() {
 
-            @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                             ConsumeConcurrentlyContext context) {
                 System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
