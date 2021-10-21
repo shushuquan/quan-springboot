@@ -14,8 +14,10 @@ public class OnewayProducer {
     public static void main(String[] args) throws Exception{
         //Instantiate with a producer group name.
         DefaultMQProducer producer = new DefaultMQProducer("oneway_producer_group");
+        // 设置VIP通道
+        producer.setVipChannelEnabled(true);
         // Specify name server addresses.
-        producer.setNamesrvAddr("192.168.18.100:9876");
+        producer.setNamesrvAddr("192.168.18.100:9876;192.168.18.101:9876");
         //Launch the instance.
         producer.start();
         for (int i = 0; i < 8; i++) {
