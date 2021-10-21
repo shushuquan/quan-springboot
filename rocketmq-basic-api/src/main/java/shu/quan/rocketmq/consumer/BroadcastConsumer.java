@@ -4,49 +4,44 @@ import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
-import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 
 import java.util.List;
 
 /**
  * @author shu_quan
  * @version 1.0
- * @introduction :消费者消费消息
- * @createtime 2021/10/19 22:44
+ * @introduction :
+ * @createtime 2021/10/22 1:32
  */
-public class Consumer {
+public class BroadcastConsumer {
+    public static void main(String[] args) throws Exception {
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("example_group_name");
 
-    public static void main(String[] args) throws InterruptedException, MQClientException {
-
-        // Instantiate with specified consumer group name.
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer_group");
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         // 设置VIP通道
         consumer.setVipChannelEnabled(true);
         // Specify name server addresses.
         consumer.setNamesrvAddr("192.168.18.101:9876");
+        //set to broadcast mode
+        // 设置成广播模式， 默认为负载均衡消费模式
+        consumer.setMessageModel(MessageModel.BROADCASTING);
 
-        // Subscribe one more more topics to consume.
-        consumer.subscribe("basic", "*");
-        // Register callback to execute on arrival of messages fetched from brokers.
+        consumer.subscribe("basic", "TagA || TagC || TagD");
+
         consumer.registerMessageListener(new MessageListenerConcurrently() {
 
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                             ConsumeConcurrentlyContext context) {
-                System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
-
-                for(MessageExt msg: msgs){
-                    System.out.println("消息内容：" + new String(msg.getBody()));
-                }
-
+                System.out.printf(Thread.currentThread().getName() + " Receive New Messages: " + msgs + "%n");
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
 
-        //Launch the consumer instance.
         consumer.start();
-
-        System.out.printf("Consumer Started.%n");
+        System.out.printf("Broadcast Consumer Started.%n");
     }
 }

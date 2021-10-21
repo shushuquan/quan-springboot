@@ -15,7 +15,7 @@ import java.util.List;
  * @introduction :消费者消费消息
  * @createtime 2021/10/19 22:44
  */
-public class Consumer {
+public class Consumer2 {
 
     public static void main(String[] args) throws InterruptedException, MQClientException {
 

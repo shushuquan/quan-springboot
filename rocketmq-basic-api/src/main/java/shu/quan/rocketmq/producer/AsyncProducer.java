@@ -33,10 +33,10 @@ public class AsyncProducer {
         for (int i = 0; i < messageCount; i++) {
             try {
                 final int index = i;
-                Message msg = new Message("broker-a",
+                Message msg = new Message("basic",
                         "TagA",
                         "OrderID188",
-                        "Hello world".getBytes(RemotingHelper.DEFAULT_CHARSET));
+                        "Hello world, 这是在发送异步消息。".getBytes(RemotingHelper.DEFAULT_CHARSET));
                 producer.send(msg, new SendCallback() {
                     @Override
                     public void onSuccess(SendResult sendResult) {
