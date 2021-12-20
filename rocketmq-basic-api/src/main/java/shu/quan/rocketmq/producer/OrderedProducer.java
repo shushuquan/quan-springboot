@@ -31,7 +31,6 @@ public class OrderedProducer {
                     ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
             // choose the special queue in an algorithm, the following is ordered Polling(轮询)
             SendResult sendResult = producer.send(msg, new MessageQueueSelector() {
-                @Override
                 public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
                     System.out.println(mqs);
                     Integer id = (Integer) arg;
