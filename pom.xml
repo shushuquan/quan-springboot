@@ -13,6 +13,7 @@
     <module>quan-swagger-beauty</module>
     <module>quan-task</module>
     <module>quan-task-quartz</module>
+    <module>quan-task-xxl-job</module>
   </modules>
   <packaging>pom</packaging>
 
