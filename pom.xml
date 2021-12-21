@@ -10,6 +10,7 @@
   <modules>
     <module>rocketmq-basic-api</module>
     <module>quan-actuator</module>
+    <module>quan-swagger-beauty</module>
   </modules>
   <packaging>pom</packaging>
 
