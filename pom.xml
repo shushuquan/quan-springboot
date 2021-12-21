@@ -12,6 +12,7 @@
     <module>quan-actuator</module>
     <module>quan-swagger-beauty</module>
     <module>quan-task</module>
+    <module>quan-task-quartz</module>
   </modules>
   <packaging>pom</packaging>
 
